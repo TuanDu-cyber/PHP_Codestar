@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <!-- Textarea -->
+      <div class="form-group">
+        <label for="message">Textarea</label>
+
+        <textarea
+          id="message"
+          class="form-control"
+          rows="3"
+          maxlength="140"
+          placeholder="jQueryScript.Net"
+        ></textarea>
+
+        <div id="messageCounter" class="counter text-danger">Max 0 / 140</div>
+
+        <!-- Notice -->
+        <div id="messageNotice" class="alert alert-danger m-2">
+          Bạn đã đạt giới hạn ký tự 140/140
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- InputField -->
+      <div class="form-group">
+        <label for="inputField">Input Field</label>
+
+        <input
+          type="text"
+          id="inputField"
+          class="form-control"
+          maxlength="20"
+          placeholder="jQueryScript.Net"
+        />
+
+        <div id="inputCounter" class="counter text-danger">Maximum 0 / 20</div>
+
+        <!-- notice -->
+        <div id="inputNotice" class="alert alert-danger m-2">Bạn đã đạt giới hạn ký tự 20/20</div>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
