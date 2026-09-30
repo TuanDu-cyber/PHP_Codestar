@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dem nguoc otp</title>
+    <style>
+      body {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 16px;
+        line-height: 1.6;
+      }
+
+      .demo-box {
+        border: 1px solid #ccc;
+        padding: 12px;
+      }
+
+      .demo-box button {
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-box">
+      <button type="button" id="btn-otp">Click otp</button>
+    </div>
+
+    <script>
+      const nut = document.querySelector("#btn-otp");
+      nut.addEventListener("click", () => {
+        let conlai = 10; // so giay con lai
+        nut.disabled = true; // vo hieu hoa nut
+        nut.textContent = `Gui lai sau ${conlai} s`; //cap nhat
+
+        const dem = setInterval(() => {
+          conlai--;
+          nut.textContent = `Gui lai sau ${conlai} s`;
+          if (conlai === 0) {
+            clearInterval(dem); // dung dem nguoc
+            nut.disabled = false; //mo khoa de co the bam lai
+            nut.textContent = "Click otp"; //tra ve chu ban dau
+          }
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
