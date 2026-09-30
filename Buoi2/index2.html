@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Demo thuc hanh</title>
+    <style>
+      .demo-box {
+        border: 1px solid #ccc;
+        padding: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="demo-box">
+      <form id="form">
+        <label for="o-ten">Ten mon:</label>
+        <input type="text" id="o-ten" name="ten" placeholder="VD:pizza" />
+        <button type="submit">them mon</button>
+      </form>
+      <ul id="ds"></ul>
+    </div>
+
+    <script>
+      const form = document.querySelector("#form");
+      const ds = document.querySelector("#ds");
+      const oTen = document.querySelector("#o-ten");
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault(); //chan su kien submit
+        const ten = oTen.value.trim(); //lay gia tri tu input
+        if (ten === "") return; //ten null bo qua
+
+        //tao dong moi
+        const li = document.createElement("li");
+
+        //ten mon an
+        const span = document.createElement("span");
+        span.textContent = ten;
+
+        const nutXoa = document.createElement("button");
+        nutXoa.type = "button"; //khong submit form
+        nutXoa.textContent = "X";
+        nutXoa.addEventListener("click", () => {
+          li.remove(); //xoa dung dong chua nut nay
+        });
+
+        //ghep vao li roi gan vao danh sach
+        li.appendChild(span, nutXoa);
+        ds.appendChild(li);
+
+        oTen.value = ""; //xoa gia tri trong input
+        oTen.focus(); //san sang goi mon tiep theo
+      });
+    </script>
+  </body>
+</html>
