@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
 }
 
 //Kết nối database
-// 1. Khai báo biến gọn gàng (Học từ ảnh)
+// 1. Khai báo biến
 $servername = "localhost";
 $username = "root";
 $password = "";
