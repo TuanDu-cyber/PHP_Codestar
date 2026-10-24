@@ -7,3 +7,4 @@ use App\Http\Controllers\HomeController;
 //     return view('welcome');
 // });
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/article/{post}', [HomeController::class, 'show'])->name('article.show');

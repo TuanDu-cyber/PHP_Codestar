@@ -1,3 +1,4 @@
-<footer class="bg-dark text-white text-center py-4">
-    <p class="mb-0">&copy; {{ date('Y') }} Sensive Blog. All rights reserved.</p>
+<footer role="contentinfo">
+    <p>2026 &copy; by Studio</p>
+    <a class="scroll-top" href="#top"></a>
 </footer>

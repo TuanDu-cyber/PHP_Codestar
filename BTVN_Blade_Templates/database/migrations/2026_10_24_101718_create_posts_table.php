@@ -15,9 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('category');
-            $table->text('excerpt');
             $table->string('image');
-            $table->date('published_at');
+            $table->dateTime('published_at');
             $table->timestamps();
         });
     }
