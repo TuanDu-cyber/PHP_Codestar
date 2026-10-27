@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Tin tức trong nước và quốc tế mới nhất từ Frivizn.">
+    <meta name="description" content="Góc Nhỏ - blog cá nhân chia sẻ chuyện học tập, du lịch và đời sống.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>@yield('title', 'Frivizn News')</title>
+    <title>@yield('title', 'Góc Nhỏ - Blog cá nhân')</title>
 
     <link href="https://fonts.googleapis.com/css?family=Exo+2:400,700|Open+Sans&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">

@@ -3,7 +3,7 @@
     <section class="nav-section">
 
         <div class="logo">
-            <a href="/" title="Frivizn logo">Frivizn</a>
+            <a href="/" title="Góc Nhỏ">Góc Nhỏ</a>
         </div>
 
         <nav class="nav-menu" role="navigation">
@@ -12,15 +12,12 @@
                 <li><a href="{{ $menu['url'] }}" title="{{ $menu['name'] }}">{{ $menu['name'] }}</a></li>
                 @endforeach
                 <li>
-                    <a href="#more" title="More">More...<span class="dropdown-toggle" aria-expanded="false"></span>
+                    <a href="/#more" title="Thêm">Thêm...<span class="dropdown-toggle" aria-expanded="false"></span>
                         <span class="screen-reader-text">Expand child menu</span></a>
                     <ul class="sub-menu">
-                        <li><a href="#" title="Science">Science</a></li>
-                        <li><a href="#" title="Travel">Travel</a></li>
-                        <li><a href="#" title="Health">Health</a></li>
-                        <li><a href="#" title="Style">Style</a></li>
-                        <li><a href="#" title="Weather">Weather</a></li>
-                        <li><a href="#" title="Video">Video</a></li>
+                        <li><a href="#" title="Giới thiệu">Giới thiệu</a></li>
+                        <li><a href="#" title="Liên hệ">Liên hệ</a></li>
+                        <li><a href="#" title="Lưu trữ">Lưu trữ</a></li>
                     </ul>
                 </li>
             </ul>

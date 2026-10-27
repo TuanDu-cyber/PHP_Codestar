@@ -5,7 +5,7 @@
         </div>
         <div class="story-headline">
             <h3>{{ $post->title }}</h3>
-            <p class="exact-time">{{ $post->published_at->format('H:i') }}h</p>
+            <p class="exact-time">{{ $post->published_at->format('d/m') }}</p>
         </div>
     </a>
 </div>

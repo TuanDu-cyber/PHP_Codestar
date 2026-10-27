@@ -11,46 +11,111 @@ class PostSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+   public function run(): void
     {
-         $data = [
-            // World (3 bài)
-            ['World', 'Hàng nghìn người xuống đường biểu tình ở thủ đô', 'images/politics2.jpg'],
-            ['World', 'Lực lượng chức năng tăng cường an ninh tại trung tâm thành phố', 'images/politics10.jpg'],
-            ['World', 'Toàn cảnh thành phố nhìn từ trên cao sau trận mưa lớn', 'images/world9.jpg'],
+        $data = [
+            // Du lịch
+            [
+                'category' => 'travel',
+                'title'    => 'Hoàng hôn bên dòng sông, ngắm cầu lên đèn',
+                'image'    => 'images/world5.jpg',
+                'content'  => "Chiều cuối tuần, mình ra bờ sông ngồi chờ hoàng hôn. Khi ánh nắng cuối ngày tắt dần, những ngọn đèn trên cầu bắt đầu sáng lên rất đẹp.\n\nChuyến đi nhỏ nhưng đủ để mình thấy nhẹ nhõm sau một tuần học tập căng thẳng.",
+            ],
+            [
+                'category' => 'travel',
+                'title'    => 'Một ngày dạo quanh London bên dòng sông Thames',
+                'image'    => 'images/world2.jpg',
+                'content'  => "Đứng bên bờ sông Thames nhìn tháp đồng hồ và tòa nhà Quốc hội, mình mới thấy ảnh trên mạng vẫn chưa đủ đẹp.\n\nMình ghi lại vài địa điểm nên ghé qua và những điều rút ra sau chuyến đi.",
+            ],
+            [
+                'category' => 'travel',
+                'title'    => 'Thành phố về đêm bên cầu Brooklyn',
+                'image'    => 'images/world10.jpg',
+                'content'  => "Ánh đèn thành phố phản chiếu trên mặt nước tạo nên khung cảnh rất khó quên. Mình đứng khá lâu để chụp được bức ảnh này.\n\nNếu có dịp, bạn nên ghé vào buổi tối để cảm nhận không khí khác hẳn ban ngày.",
+            ],
 
-            // Politics (4 bài)
-            ['Politics', 'Quốc hội thảo luận dự thảo luật mới về giáo dục', 'images/politics4.jpg'],
-            ['Politics', 'Báo chí đưa tin sôi động sau cuộc họp thượng đỉnh', 'images/politics5.jpg'],
-            ['Politics', 'Cảnh sát siết chặt giao thông trong dịp lễ lớn', 'images/politics9.jpg'],
-            ['Politics', 'Thủ đô London đón đoàn đại biểu quốc tế', 'images/world2.jpg'],
+            // Học tập
+            [
+                'category' => 'study',
+                'title'    => 'Những dòng code Blade đầu tiên của mình',
+                'image'    => 'images/business4.jpg',
+                'content'  => "Hôm nay mình bắt đầu học Blade trong Laravel. Cảm giác đầu tiên là khá dễ chịu vì cú pháp ngắn gọn, dễ đọc.\n\nCác directive như extends, section, yield giúp mình tách layout rất gọn, không phải sao chép header và footer nhiều lần.",
+            ],
+            [
+                'category' => 'study',
+                'title'    => 'Góc học tập nhỏ gọn của mình',
+                'image'    => 'images/business7.jpg',
+                'content'  => "Mình thích một góc bàn gọn gàng với máy tính, vài chậu cây nhỏ và ánh sáng tự nhiên.\n\nKhông gian sạch sẽ giúp mình tập trung học lâu hơn mỗi ngày.",
+            ],
+            [
+                'category' => 'study',
+                'title'    => 'Buổi học nhóm cuối tuần cùng lớp',
+                'image'    => 'images/business1.jpg',
+                'content'  => "Cuối tuần cả nhóm tụ tập để làm bài tập chung. Mỗi người một việc, vừa làm vừa trao đổi nên tiến độ nhanh hơn hẳn.\n\nMình học được nhiều mẹo hay từ các bạn.",
+            ],
+            [
+                'category' => 'study',
+                'title'    => 'Thói quen đọc tin mỗi sáng',
+                'image'    => 'images/politics5.jpg',
+                'content'  => "Mỗi sáng mình dành mười lăm phút để đọc tin tức. Thói quen nhỏ này giúp mình mở rộng hiểu biết và có thêm nhiều chủ đề để viết blog.\n\nBạn cũng có thể thử xem sao.",
+            ],
 
-            // Business (4 bài)
-            ['Business', 'Doanh nghiệp vừa và nhỏ đẩy mạnh chuyển đổi số', 'images/business1.jpg'],
-            ['Business', 'Thị trường công nghệ tăng trưởng mạnh quý này', 'images/business4.jpg'],
-            ['Business', 'Chỉ số kinh tế tháng 10 vượt dự báo của giới phân tích', 'images/business7.jpg'],
-            ['Business', 'Cảng container đạt công suất kỷ lục', 'images/business10.jpg'],
+            // Thể thao
+            [
+                'category' => 'sport',
+                'title'    => 'Chạy bộ buổi sáng bên hồ',
+                'image'    => 'images/sport2.jpg',
+                'content'  => "Sáng sớm không khí trong lành, đường vắng nên chạy rất thoải mái. Mình đặt mục tiêu chạy đều đặn vài buổi mỗi tuần.\n\nSau mỗi buổi chạy, đầu óc mình minh mẫn hơn hẳn.",
+            ],
+            [
+                'category' => 'sport',
+                'title'    => 'Đá bóng cuối tuần cùng bạn bè',
+                'image'    => 'images/sport5.jpg',
+                'content'  => "Không cần giỏi, chỉ cần vui là đủ. Trận bóng cuối tuần là cách mình xả stress sau những ngày học tập.\n\nCả nhóm hẹn nhau đều đặn mỗi tuần.",
+            ],
+            [
+                'category' => 'sport',
+                'title'    => 'Lần đầu xem bóng bầu dục',
+                'image'    => 'images/sport6.jpg',
+                'content'  => "Luật chơi khá phức tạp nhưng không khí trận đấu rất cuốn hút. Mình vừa xem vừa tra cứu luật chơi.\n\nHy vọng sẽ có dịp xem trực tiếp ở sân vận động.",
+            ],
+            [
+                'category' => 'sport',
+                'title'    => 'Ngắm siêu xe ở trường đua',
+                'image'    => 'images/sport7.jpg',
+                'content'  => "Tiếng động cơ và những đường nét của chiếc xe thể thao khiến mình mê mẩn. Mình chụp vài bức ảnh làm kỷ niệm.\n\nĐây là lần đầu mình đến gần một chiếc siêu xe như vậy.",
+            ],
 
-            // Sport (4 bài)
-            ['Sport', 'Vận động viên marathon phá kỷ lục cá nhân', 'images/sport2.jpg'],
-            ['Sport', 'Sân vận động sẵn sàng cho trận chung kết cuối tuần', 'images/sport5.jpg'],
-            ['Sport', 'Giải bóng bầu dục khởi tranh với nhiều bất ngờ', 'images/sport6.jpg'],
-            ['Sport', 'Giải đua xe thể thao thu hút hàng chục nghìn khán giả', 'images/sport7.jpg'],
-
-            // Entertainment (4 bài)
-            ['Entertainment', 'Đêm nhạc sống bùng nổ trước hàng nghìn khán giả', 'images/entertainment1.jpg'],
-            ['Entertainment', 'Nghệ sĩ guitar ra mắt album đầu tay', 'images/entertainment4.jpg'],
-            ['Entertainment', 'Đám cưới của năm khiến mạng xã hội xôn xao', 'images/entertainment6.jpg'],
-            ['Entertainment', 'Tuần lễ thời trang mở màn với nhiều thiết kế độc đáo', 'images/entertainment10.jpg'],
+            // Đời sống
+            [
+                'category' => 'life',
+                'title'    => 'Đêm nhạc sống đáng nhớ',
+                'image'    => 'images/entertainment1.jpg',
+                'content'  => "Hàng nghìn người cùng hát vang dưới ánh đèn sân khấu, cảm giác thật khó tả.\n\nMình sẽ còn đi thêm nhiều đêm nhạc như vậy.",
+            ],
+            [
+                'category' => 'life',
+                'title'    => 'Học đàn guitar cùng bạn',
+                'image'    => 'images/entertainment4.jpg',
+                'content'  => "Mình và bạn hẹn nhau tập guitar mỗi cuối tuần. Ban đầu ngón tay đau và bấm hợp âm còn vụng.\n\nNhưng luyện đều mỗi ngày, mình đã chơi được vài bài đơn giản.",
+            ],
+            [
+                'category' => 'life',
+                'title'    => 'Đám cưới của người bạn thân',
+                'image'    => 'images/entertainment6.jpg',
+                'content'  => "Hôm nay mình đi dự đám cưới của người bạn thân. Nhìn bó hoa cưới trong tay cô dâu, mình thấy rất xúc động và vui cho bạn.\n\nChúc hai bạn hạnh phúc.",
+            ],
+            [
+                'category' => 'life',
+                'title'    => 'Chân dung bạn mình qua ống kính',
+                'image'    => 'images/entertainment10.jpg',
+                'content'  => "Mình thử chụp chân dung bằng ánh sáng ngược. Bức ảnh khá tự nhiên và có chiều sâu.\n\nMình đang học thêm về ánh sáng và bố cục.",
+            ],
         ];
 
-        foreach ($data as $i => [$category, $title, $image]) {
-            Post::create([
-                'title'        => $title,
-                'category'     => $category,
-                'image'        => $image,
-                'published_at' => now()->subMinutes($i * 17),
-            ]);
+        foreach ($data as $i => $item) {
+            Post::create($item + ['published_at' => now()->subDays($i)]);
         }
     }
+    
 }

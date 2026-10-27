@@ -1,69 +1,67 @@
 @extends('layouts.master')
 
-@section('title', 'Trang chủ | Frivizn News')
+@section('title', 'Trang chủ | Góc Nhỏ')
 
 @section('content')
+
+@if ($posts->isEmpty())
+
+<p>Chưa có bài viết nào.</p>
+
+@else
 
 <div class="top-news">
 
     <section class="latest-news">
-        <div class="headline">
-            <p>Breaking News</p>
-            <a href="#">
-                <h1>Tin nóng: Thị trường và chính trường đón nhiều biến động trong ngày</h1>
+        <div class="headline" style="background-image: url('{{ asset($posts->first()->image) }}')">
+            <p>Mới nhất</p>
+            <a href="{{ route('article.show', $posts->first()) }}">
+                <h1>{{ $posts->first()->title }}</h1>
             </a>
         </div>
     </section>
 
     <section class="top-stories">
-        <h2>Top Stories</h2>
-        <div class="headline headline-1">
-            <a href="#">
-                <h1>Chính phủ công bố gói hỗ trợ doanh nghiệp mới</h1>
+        <h2>Bài viết nổi bật</h2>
+        @foreach ($posts->slice(1, 3) as $post)
+        <div class="headline headline-{{ $loop->iteration }}" style="background-image: url('{{ asset($post->image) }}')">
+            <a href="{{ route('article.show', $post) }}">
+                <h1>{{ $post->title }}</h1>
             </a>
         </div>
-        <div class="headline headline-2">
-            <a href="#">
-                <h1>Giá năng lượng thế giới tiếp tục biến động</h1>
-            </a>
-        </div>
-        <div class="headline headline-3">
-            <a href="#">
-                <h1>Hội nghị quốc tế khai mạc với nhiều cam kết mới</h1>
-            </a>
-        </div>
+        @endforeach
     </section>
 
 </div>
 
-@forelse ($sections as $category => $posts)
-<section class="{{ strtolower($category) }}" id="{{ strtolower($category) }}">
-    <h2>{{ $category }}</h2>
+@foreach ($categories as $slug => $label)
+@if ($sections->has($slug))
+<section class="{{ $slug }}" id="{{ $slug }}">
+    <h2>{{ $label }}</h2>
 
-    @foreach ($posts as $post)
+    @foreach ($sections[$slug] as $post)
     @include('partials.story', [
     'post' => $post,
-    'extra' => $category === 'World' ? 'story-' . $loop->iteration : '',
+    'extra' => $slug === 'travel' ? 'story-' . $loop->iteration : '',
     ])
     @endforeach
 </section>
-@empty
-<p>Chưa có bài viết nào.</p>
-@endforelse
+@endif
+@endforeach
 
-@if ($more->count() > 0)
 <section class="more" id="more">
-    <h2>More...</h2>
+    <h2>Mới đăng gần đây</h2>
 
     @foreach ($more as $post)
     <a href="{{ route('article.show', $post) }}">
         <div class="more-headline">
             <h3>{{ $post->title }}</h3>
-            <p class="exact-time">{{ $post->published_at->format('H:i') }}h</p>
+            <p class="exact-time">{{ $post->published_at->format('d/m') }}</p>
         </div>
     </a>
     @endforeach
 </section>
+
 @endif
 
 @endsection
