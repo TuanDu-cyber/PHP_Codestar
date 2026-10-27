@@ -11,8 +11,25 @@
                 @foreach ($menus as $menu)
                 <li><a href="{{ $menu['url'] }}" title="{{ $menu['name'] }}">{{ $menu['name'] }}</a></li>
                 @endforeach
+
+                @guest
+                <li><a href="{{ route('login') }}" title="Đăng nhập">Đăng nhập</a></li>
+                <li><a href="{{ route('register') }}" title="Đăng ký">Đăng ký</a></li>
+                @endguest
+
+                @auth
+                <li><a href="{{ route('post.index') }}" title="Bài viết của tôi">Bài của tôi</a></li>
+                <li><a href="{{ route('post.create') }}" title="Viết bài">Viết bài</a></li>
                 <li>
-                    <a href="/#more" title="Thêm">Thêm...<span class="dropdown-toggle" aria-expanded="false"></span>
+                    <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                        @csrf
+                        <button type="submit" title="Đăng xuất">Đăng xuất ({{ Str::limit(Auth::user()->name, 15) }})</button>
+                    </form>
+                </li>
+                @endauth
+
+                <li>
+                    <a href="#more" title="Thêm">Thêm<span class="dropdown-toggle" aria-expanded="false"></span>
                         <span class="screen-reader-text">Expand child menu</span></a>
                     <ul class="sub-menu">
                         <li><a href="#" title="Giới thiệu">Giới thiệu</a></li>

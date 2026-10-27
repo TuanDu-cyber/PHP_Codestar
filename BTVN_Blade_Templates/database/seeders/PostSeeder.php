@@ -2,17 +2,32 @@
 
 namespace Database\Seeders;
 
+use App\Models\Comment;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Post;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class PostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
-   public function run(): void
+    public function run(): void
     {
+        $an = User::create([
+            'name'     => 'Nguyễn Văn An',
+            'email'    => 'an@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
+        $binh = User::create([
+            'name'     => 'Trần Thị Bình',
+            'email'    => 'binh@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
         $data = [
             // Du lịch
             [
@@ -114,8 +129,24 @@ class PostSeeder extends Seeder
         ];
 
         foreach ($data as $i => $item) {
-            Post::create($item + ['published_at' => now()->subDays($i)]);
+            Post::create($item + [
+                'user_id'      => $i < 8 ? $an->id : $binh->id,   // 8 bài đầu của An, còn lại của Bình
+                'published_at' => now()->subDays($i),
+            ]);
         }
+
+        $first = Post::orderBy('id')->first();
+
+        Comment::create([
+            'post_id' => $first->id,
+            'user_id' => $binh->id,
+            'content' => 'Ảnh đẹp quá, cảm ơn bạn đã chia sẻ!',
+        ]);
+
+        Comment::create([
+            'post_id' => $first->id,
+            'user_id' => $an->id,
+            'content' => 'Cảm ơn Bình, cuối tuần sau mình sẽ đi thêm.',
+        ]);
     }
-    
 }

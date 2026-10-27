@@ -10,8 +10,20 @@
     <h2>{{ $post->title }}</h2>
     <p>
         <small>{{ $post->published_at->format('d/m/Y') }} · {{ $categories[$post->category] ?? $post->category }}</small><br>
-        Viết bởi chủ blog
+        Viết bởi {{ $post->user->name }}
     </p>
+
+    @can('update', $post)
+    <div class="owner-actions">
+        <a class="btn" href="{{ route('post.edit', $post) }}">Sửa bài viết</a>
+        <form action="{{ route('post.destroy', $post) }}" method="POST" class="inline-form"
+            onsubmit="return confirm('Chuyển bài viết này vào thùng rác?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-delete">Xóa</button>
+        </form>
+    </div>
+    @endcan
 
     <div class="headline" style="background-image: url('{{ asset($post->image) }}')"></div>
 
@@ -24,39 +36,50 @@
         <figcaption>{{ $post->title }}</figcaption>
     </figure>
 
-    @php
-    $comments = [
-    ['name' => 'minhanh98', 'text' => 'Bài viết hay quá, mình cũng đang muốn thử.', 'replies' => 1],
-    ['name' => 'quanghuy', 'text' => 'Cảm ơn bạn đã chia sẻ, đọc rất thích!', 'replies' => 2],
-    ['name' => 'thuytrang', 'text' => 'Mong bạn viết thêm nhiều bài như thế này.', 'replies' => 0],
-    ];
-    @endphp
+    <div class="comments" id="comments">
+        <p><a href="#comments">Bình luận ({{ $comments->count() }})</a></p>
+        <h4>Bình luận mới nhất</h4>
 
-    <div class="comments">
-        <p><a href="#">Bình luận ({{ count($comments) }})</a></p>
-        <h4>Bình luận nổi bật</h4>
-
-        @foreach ($comments as $comment)
-        <p class="comment-name">{{ $comment['name'] }}</p>
+        @forelse ($comments as $comment)
+        <p class="comment-name">{{ $comment->user->name }}</p>
         <div class="comment-text">
-            <p>{{ $comment['text'] }}</p>
-            <p><small>Trả lời ({{ $comment['replies'] }})</small></p>
+            <p>{!! nl2br(e($comment->content)) !!}</p>
+            <div class="comment-meta">
+                <small>{{ $comment->created_at->format('d/m/Y H:i') }}</small>
+                @can('delete', $comment)
+                <form action="{{ route('comment.destroy', $comment) }}" method="POST" class="inline-form"
+                    onsubmit="return confirm('Xóa bình luận này?')">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-link">Xóa</button>
+                </form>
+                @endcan
+            </div>
         </div>
-        @endforeach
+        @empty
+        <p>Chưa có bình luận nào, hãy là người đầu tiên!</p>
+        @endforelse
     </div>
 
     <h3>Để lại bình luận</h3>
+
+    @auth
     <div class="form-container">
-        <form action="#" onsubmit="return false;">
-            <label for="name">Tên của bạn</label>
-            <input type="text" id="name" name="name" placeholder="Tên của bạn..">
+        <form action="{{ route('comment.store', $post) }}" method="POST">
+            @csrf
 
-            <label for="comment">Bình luận</label>
-            <textarea id="comment" name="comment" placeholder="Viết bình luận.." style="height:200px"></textarea>
+            <label for="comment">Bình luận (đăng với tên {{ Auth::user()->name }})</label>
+            <textarea id="comment" name="content" style="height:150px" placeholder="Viết bình luận..">{{ old('content') }}</textarea>
+            @error('content')
+            <p class="error">{{ $message }}</p>
+            @enderror
 
-            <input type="submit" value="Gửi">
+            <input type="submit" value="Gửi bình luận">
         </form>
     </div>
+    @else
+    <p>Vui lòng <a href="{{ route('login') }}">đăng nhập</a> để bình luận.</p>
+    @endauth
 </article>
 
 <aside class="sidebar" role="complementary">
