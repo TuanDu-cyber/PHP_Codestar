@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use App\Mail\WelcomeMail;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -23,6 +27,19 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        Log::channel('auth')->info('Đăng ký', [
+            'user_id' => $user->id,
+            'email'   => $user->email,
+            'time'    => now()->toDateTimeString(),
+            'ip'      => $request->ip(),
+        ]);
+
+        try {
+            Mail::to($user->email)->send(new WelcomeMail($user));
+        } catch (\Throwable $e) {
+            Log::error('Gửi mail chào mừng thất bại', ['email' => $user->email, 'error' => $e->getMessage()]);
+        }
+
         Auth::login($user);
         $request->session()->regenerate();
 
@@ -34,22 +51,28 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'email'    => 'required|email',
-            'password' => 'required',
-        ], [
-            'email.required'    => 'Vui lòng nhập email.',
-            'email.email'       => 'Email không đúng định dạng.',
-            'password.required' => 'Vui lòng nhập mật khẩu.',
-        ]);
+        $credential = $request->validated();
 
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::attempt($credential)) {
             $request->session()->regenerate();
 
-            return redirect()->intended(route('home'))->with('success', 'Đăng nhập thành công.');
+            Log::channel('auth')->info('Đăng nhập', [
+                'user_id' => Auth::id(),
+                'email'   => Auth::user()->email,
+                'time'    => now()->toDateTimeString(),
+                'ip'      => $request->ip(),
+            ]);
+
+            return redirect()->route('post.index');
         }
+
+        Log::channel('auth')->warning('Đăng nhập thất bại', [
+            'email' => $request->email,
+            'time'  => now()->toDateTimeString(),
+            'ip'    => $request->ip(),
+        ]);
 
         return back()
             ->withErrors(['email' => 'Email hoặc mật khẩu không đúng.'])

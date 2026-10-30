@@ -31,6 +31,7 @@
         <input type="submit" value="Đăng nhập">
     </form>
 
+    <p><a href="{{ route('password.request') }}">Quên mật khẩu?</a></p>
     <p>Chưa có tài khoản? <a href="{{ route('register') }}">Đăng ký</a></p>
 </div>
 

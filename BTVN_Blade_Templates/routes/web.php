@@ -5,6 +5,22 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\LogDailyCheck;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\VerifyEmail;
+use App\Notifications\VerifyEmail as VerifyEmailNotification;
+use Illuminate\Support\Facades\Notification;
+use App\Http\Controllers\PasswordResetController;
+
+// Route::get('/noti', function () {
+//     Notification::route('mail', 'du@example.com')->notify(new VerifyEmailNotification('Du'));
+//     return 'Notification sent';
+// });
+
+// Route::get('/mail', function () {
+//     Mail::to('du@example.com')->send(new VerifyEmail('Duw'));
+//     return 'Email sent';
+// });
 
 //Công khai
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -16,6 +32,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'register']);
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/forgot-password', [PasswordResetController::class, 'showForgot'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendLink'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'showReset'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
 });
 
 //Chỉ dành cho người đã đăng nhập
@@ -42,4 +62,10 @@ Route::middleware('auth')->group(function () {
     //Bình luận
     Route::post('/article/{post}/comments', [CommentController::class, 'store'])->name('comment.store');
     Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])->name('comment.destroy');
+});
+Route::get('/404', function () {
+    abort(404);
+});
+Route::middleware(['auth', LogDailyCheck::class])->group(function () {
+    // ...
 });
